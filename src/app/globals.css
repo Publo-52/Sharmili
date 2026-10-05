@@ -1,26 +1,267 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-canvas: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --ink-primary: #0F172A;
+  --ink-secondary: #334155;
+  --ink-muted: #64748B;
+  --border-subtle: #E2E8F0;
+  --border-editorial: #CBD5E1;
+  --accent-primary: #1D4ED8; /* Oxford Cobalt Blue - matches major millimeter grid */
+  --accent-hover: #1E40AF;
+  --accent-light: #EFF6FF;
+  --accent-cyan: #0284C7; /* Technical Cerulean - matches minor 2mm grid */
+  --accent-gold: #D97706; /* Scholarly Amber - authentic mathematical highlight */
+  --grid-line: rgba(15, 23, 42, 0.035);
+  --grid-major: rgba(15, 23, 42, 0.07);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-serif), "Newsreader", Georgia, serif;
+  --font-sans: var(--font-sans), "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-mono), "JetBrains Mono", monospace;
+  --color-canvas: var(--bg-canvas);
+  --color-ink: var(--ink-primary);
+  --color-accent: var(--accent-primary);
+  --color-cyan: var(--accent-cyan);
+  --color-gold: var(--accent-gold);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base resets & typography */
+html {
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  background-color: #F8FAFC;
+  color: var(--ink-primary);
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #F8FAFC;
+  color: var(--ink-primary);
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Authentic Crumpled Graph Paper Texture for Cards, Div Containers, Navbar & Footer */
+.paper-texture {
+  background-color: #FFFFFF;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.86)),
+    url('/paper-texture.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.paper-texture-solid {
+  background-color: #FFFFFF;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.80), rgba(255, 255, 255, 0.80)),
+    url('/paper-texture.png');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Compact Professional Card Styling */
+.pro-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+/* Academic Note Margin Line */
+.margin-note-border {
+  border-left: 3px solid var(--accent-primary);
+}
+
+/* Editorial Underline Hover Animation */
+.link-editorial {
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.link-editorial::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1.5px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--accent-primary);
+  transform-origin: bottom right;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-editorial:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Custom clean scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F8FAFC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Rich Dynamic Keyframe Animations & Micro-Interactions */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes drift-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+  66% {
+    transform: translateY(6px) rotate(-1.5deg);
+  }
+}
+
+@keyframes float-h {
+  0%, 100% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes border-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2), 0 2px 8px rgba(37, 99, 235, 0.08);
+  }
+  50% {
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.4), 0 4px 16px rgba(37, 99, 235, 0.16);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 5s ease-in-out infinite 1s;
+}
+
+.animate-drift-slow {
+  animation: drift-slow 12s ease-in-out infinite;
+}
+
+.animate-drift-slow-delayed {
+  animation: drift-slow 15s ease-in-out infinite 3s;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 35s linear infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-border-glow {
+  animation: border-glow 3s ease-in-out infinite;
+}
+
+/* UI/UX Smooth Hover Lift Effect */
+.card-hover-lift {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  will-change: transform, box-shadow;
+}
+
+.card-hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -4px rgba(29, 78, 216, 0.10), 0 4px 10px -2px rgba(15, 23, 42, 0.05);
+  border-color: #93C5FD;
+}
+
+/* Tactile mobile interaction class */
+.interactive-tap {
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.interactive-tap:active {
+  transform: scale(0.97);
+}
+
+/* Accessibility: Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
