@@ -1,4 +1,3 @@
-import PageTransition from "@/components/PageTransition";
 import MathBackground from "@/components/MathBackground";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -16,9 +15,6 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
-      {/* Subtle Initial Mathematical Sequence */}
-      <PageTransition />
-
       {/* Atmospheric Cartesian Grid & Watermarks */}
       <MathBackground />
 
@@ -27,7 +23,7 @@ export default function Home() {
         <Navbar />
 
         <main id="main-content" className="flex-1">
-          {/* Section 00: Hero */}
+          {/* Section 00: Hero (Opens immediately when visiting the website) */}
           <Hero />
 
           {/* Section 01: About Me */}
