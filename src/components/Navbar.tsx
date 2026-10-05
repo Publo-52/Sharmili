@@ -27,26 +27,34 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 20);
 
-      const totalHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight > 0) {
-        setScrollProgress((window.scrollY / totalHeight) * 100);
+          const totalHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
+          if (totalHeight > 0) {
+            setScrollProgress((window.scrollY / totalHeight) * 100);
+          }
+
+          const sections = navItems.map((item) => item.sectionId);
+          const scrollPosition = window.scrollY + 160;
+
+          for (let i = sections.length - 1; i >= 0; i--) {
+            const el = document.getElementById(sections[i]);
+            if (el && el.offsetTop <= scrollPosition) {
+              setActiveSection(sections[i]);
+              ticking = false;
+              return;
+            }
+          }
+          setActiveSection("hero");
+          ticking = false;
+        });
+        ticking = true;
       }
-
-      const sections = navItems.map((item) => item.sectionId);
-      const scrollPosition = window.scrollY + 160;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          return;
-        }
-      }
-      setActiveSection("hero");
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {

@@ -265,3 +265,14 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Completely suppress Next.js dev indicator portal and N icon button */
+nextjs-portal,
+#__next-build-watcher,
+[data-nextjs-toast],
+[data-nextjs-dialog-overlay] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
