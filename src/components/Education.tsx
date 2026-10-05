@@ -74,10 +74,10 @@ export default function Education() {
             {educationData.map((item, idx) => {
               const theme = markerColors[idx % markerColors.length];
               return (
-                <div key={idx} className="relative pl-10 sm:pl-12 group">
+                <div key={idx} className="relative pl-8 sm:pl-11 group">
                   {/* Mathematical Timeline Marker: t₀, t₁, t₂ */}
                   <div
-                    className={`absolute left-1.5 sm:left-2.5 top-1 w-6 h-6 -translate-x-1/2 rounded-full border-2 flex items-center justify-center font-mono text-[9px] font-bold transition-all duration-200 shadow-2xs ${theme.marker}`}
+                    className={`absolute left-4 sm:left-5 top-1 w-6 h-6 -translate-x-1/2 rounded-full border-2 flex items-center justify-center font-mono text-[9px] font-bold transition-all duration-200 shadow-2xs ${theme.marker}`}
                   >
                     {item.mathMarker}
                   </div>

@@ -240,29 +240,31 @@ export default function MathPlayground() {
         </span>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
         {/* Canvas Area (8 cols) */}
         <div
           onMouseMove={handleMouseMove}
           onTouchMove={handleTouchMove}
           onTouchStart={handleTouchMove}
-          className="lg:col-span-8 paper-texture border border-slate-200 rounded-xl p-4 shadow-2xs relative overflow-hidden card-hover-lift"
+          className="lg:col-span-8 paper-texture border border-slate-200 rounded-xl p-3.5 sm:p-4 shadow-2xs relative overflow-hidden card-hover-lift"
         >
           {/* Canvas Header bar */}
-          <div className="flex items-center justify-between pb-2 mb-2 text-xs font-mono text-slate-500">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 mb-2 text-xs font-mono text-slate-500">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-blue-600" />
-              <span className="font-medium text-slate-700 text-[11px]">PLANE: ℝ² [-3, +3] × [-3, +3]</span>
+              <span className="w-2 h-2 rounded-full bg-blue-600 shrink-0" />
+              <span className="font-medium text-slate-700 text-[10px] sm:text-[11px] truncate">
+                PLANE: ℝ² [-3, +3] × [-3, +3]
+              </span>
             </div>
 
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
               <button
                 type="button"
                 onClick={() => setMode("wave")}
-                className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold transition-colors cursor-pointer ${
+                className={`min-h-[36px] sm:min-h-0 px-2.5 sm:px-2 py-1 sm:py-0.5 rounded text-[10px] uppercase font-bold transition-colors cursor-pointer whitespace-nowrap interactive-tap ${
                   mode === "wave"
                     ? "bg-blue-700 text-white shadow-2xs"
-                    : "hover:bg-slate-100 text-slate-600"
+                    : "hover:bg-slate-100 text-slate-600 bg-slate-50 sm:bg-transparent"
                 }`}
               >
                 Wave
@@ -270,10 +272,10 @@ export default function MathPlayground() {
               <button
                 type="button"
                 onClick={() => setMode("lissajous")}
-                className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold transition-colors cursor-pointer ${
+                className={`min-h-[36px] sm:min-h-0 px-2.5 sm:px-2 py-1 sm:py-0.5 rounded text-[10px] uppercase font-bold transition-colors cursor-pointer whitespace-nowrap interactive-tap ${
                   mode === "lissajous"
                     ? "bg-blue-700 text-white shadow-2xs"
-                    : "hover:bg-slate-100 text-slate-600"
+                    : "hover:bg-slate-100 text-slate-600 bg-slate-50 sm:bg-transparent"
                 }`}
               >
                 Lissajous
@@ -281,18 +283,18 @@ export default function MathPlayground() {
               <button
                 type="button"
                 onClick={() => setMode("vectors")}
-                className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold transition-colors cursor-pointer ${
+                className={`min-h-[36px] sm:min-h-0 px-2.5 sm:px-2 py-1 sm:py-0.5 rounded text-[10px] uppercase font-bold transition-colors cursor-pointer whitespace-nowrap interactive-tap ${
                   mode === "vectors"
                     ? "bg-blue-700 text-white shadow-2xs"
-                    : "hover:bg-slate-100 text-slate-600"
+                    : "hover:bg-slate-100 text-slate-600 bg-slate-50 sm:bg-transparent"
                 }`}
               >
-                Vector Gradient
+                Vectors
               </button>
             </div>
           </div>
 
-          <div className="w-full h-48 sm:h-56 flex items-center justify-center bg-slate-50 rounded">
+          <div className="w-full h-44 xs:h-48 sm:h-56 flex items-center justify-center bg-slate-50 rounded">
             <canvas
               ref={canvasRef}
               width={640}
@@ -301,43 +303,43 @@ export default function MathPlayground() {
             />
           </div>
 
-          <div className="pt-2 flex items-center justify-between text-[10px] font-mono text-slate-500">
-            <span>Move cursor or touch grid to perturb manifold parameters</span>
-            <span className="text-blue-700 font-bold">f(x, y) active</span>
+          <div className="pt-2 flex flex-col xs:flex-row xs:items-center justify-between gap-1 text-[10px] font-mono text-slate-500">
+            <span>Move cursor or drag touch grid to perturb manifold parameters</span>
+            <span className="text-blue-700 font-bold shrink-0">f(x, y) active</span>
           </div>
         </div>
 
         {/* Real-time Math Feedback Slate (4 cols) */}
-        <div className="lg:col-span-4 p-4 sm:p-5 paper-texture border border-slate-200 rounded-xl space-y-3.5 shadow-2xs card-hover-lift">
+        <div className="lg:col-span-4 p-3.5 sm:p-5 paper-texture border border-slate-200 rounded-xl space-y-3 shadow-2xs card-hover-lift">
           <div className="pb-1">
             <span className="font-mono text-[9px] uppercase tracking-wider text-slate-500 font-bold block">
               Live Coordinate Metrics
             </span>
-            <h3 className="font-serif text-lg text-slate-900 font-bold">
+            <h3 className="font-serif text-base sm:text-lg text-slate-900 font-bold">
               Analytic Readout
             </h3>
           </div>
 
-          <div className="space-y-2 font-mono text-xs">
-            <div className="flex items-center justify-between p-2 bg-slate-50 border border-slate-200 rounded">
-              <span className="text-slate-500 text-[11px]">Point (x, y):</span>
-              <span className="font-semibold text-slate-900 text-[11px]">
+          <div className="grid grid-cols-2 lg:grid-cols-1 gap-2 font-mono text-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2 bg-slate-50 border border-slate-200 rounded gap-0.5">
+              <span className="text-slate-500 text-[10px] sm:text-[11px]">Point (x, y):</span>
+              <span className="font-semibold text-slate-900 text-[10px] sm:text-[11px]">
                 ({coords.x.toFixed(2)}, {coords.y.toFixed(2)})
               </span>
             </div>
 
-            <div className="flex items-center justify-between p-2 bg-slate-50 border border-slate-200 rounded">
-              <span className="text-slate-500 text-[11px]">Radius r:</span>
-              <span className="font-bold text-blue-700 text-[11px]">{metric.r}</span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2 bg-slate-50 border border-slate-200 rounded gap-0.5">
+              <span className="text-slate-500 text-[10px] sm:text-[11px]">Radius r:</span>
+              <span className="font-bold text-blue-700 text-[10px] sm:text-[11px]">{metric.r}</span>
             </div>
 
-            <div className="flex items-center justify-between p-2 bg-slate-50 border border-slate-200 rounded">
-              <span className="text-slate-500 text-[11px]">Angle θ (rad):</span>
-              <span className="font-semibold text-slate-900 text-[11px]">{metric.theta}</span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2 bg-slate-50 border border-slate-200 rounded gap-0.5">
+              <span className="text-slate-500 text-[10px] sm:text-[11px]">Angle θ (rad):</span>
+              <span className="font-semibold text-slate-900 text-[10px] sm:text-[11px]">{metric.theta}</span>
             </div>
 
-            <div className="flex items-center justify-between p-2 bg-slate-50 border border-slate-200 rounded">
-              <span className="text-slate-500 text-[11px]">f(x, y):</span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2 bg-slate-50 border border-slate-200 rounded gap-0.5">
+              <span className="text-slate-500 text-[10px] sm:text-[11px]">f(x, y):</span>
               <span className="font-bold text-blue-800 text-[11px]">{metric.val}</span>
             </div>
           </div>

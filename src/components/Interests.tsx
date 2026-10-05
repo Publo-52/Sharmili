@@ -37,8 +37,8 @@ export default function Interests() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-start">
-        {/* Left Column: Interactive Editorial List (7 cols) */}
-        <div className="lg:col-span-7 space-y-2">
+        {/* Left Column: Interactive Editorial List (7 cols on desktop, full width on mobile) */}
+        <div className="lg:col-span-7 space-y-2.5">
           {interestAreas.map((area) => {
             const isSelected = activeId === area.id;
             return (
@@ -53,65 +53,89 @@ export default function Interests() {
                     setActiveId(area.id);
                   }
                 }}
-                className={`py-2.5 sm:py-3 text-left cursor-pointer transition-all duration-200 group flex items-start justify-between gap-3 px-3.5 sm:px-4 rounded-xl border card-hover-lift interactive-tap ${
+                className={`py-3 sm:py-3 text-left cursor-pointer transition-all duration-200 group flex flex-col px-3.5 sm:px-4 rounded-xl border card-hover-lift interactive-tap ${
                   isSelected
                     ? "paper-texture border-violet-600 shadow-md ring-1 ring-violet-500/25 bg-violet-50/20"
                     : "paper-texture border-slate-200/90 shadow-2xs hover:border-slate-400"
                 }`}
               >
-                <div className="flex items-baseline gap-3 sm:gap-4">
-                  <span
-                    className={`font-mono text-xs transition-colors font-bold ${
-                      isSelected
-                        ? "text-violet-700"
-                        : "text-slate-400 group-hover:text-slate-800"
-                    }`}
-                  >
-                    {area.number}
-                  </span>
-
-                  <div>
-                    <h3
-                      className={`font-serif text-base sm:text-lg transition-colors ${
+                {/* Main clickable row */}
+                <div className="flex items-start justify-between gap-3 w-full">
+                  <div className="flex items-baseline gap-3 sm:gap-4">
+                    <span
+                      className={`font-mono text-xs transition-colors font-bold ${
                         isSelected
-                          ? "text-slate-900 font-semibold"
-                          : "text-slate-700 group-hover:text-slate-900 font-medium"
+                          ? "text-violet-700"
+                          : "text-slate-400 group-hover:text-slate-800"
                       }`}
                     >
-                      {area.title}
-                    </h3>
-                    <p className="text-xs text-slate-500 font-sans mt-0.5 line-clamp-1">
-                      {area.subtitle}
-                    </p>
+                      {area.number}
+                    </span>
+
+                    <div>
+                      <h3
+                        className={`font-serif text-base sm:text-lg transition-colors ${
+                          isSelected
+                            ? "text-slate-900 font-semibold"
+                            : "text-slate-700 group-hover:text-slate-900 font-medium"
+                        }`}
+                      >
+                        {area.title}
+                      </h3>
+                      <p className="text-xs text-slate-500 font-sans mt-0.5 line-clamp-1">
+                        {area.subtitle}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span
+                      className={`font-mono text-[10px] px-2 py-0.5 rounded border hidden sm:inline-block font-medium ${
+                        interestPillColors[area.number] ||
+                        "text-slate-600 bg-slate-100 border-slate-200"
+                      }`}
+                    >
+                      {area.mathNotation}
+                    </span>
+                    <span
+                      className={`font-mono text-xs transition-transform duration-200 ${
+                        isSelected
+                          ? "text-violet-700 translate-x-1 font-bold"
+                          : "text-slate-400 group-hover:translate-x-1"
+                      }`}
+                    >
+                      →
+                    </span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`font-mono text-[10px] px-2 py-0.5 rounded border hidden sm:inline-block font-medium ${
-                      interestPillColors[area.number] ||
-                      "text-slate-600 bg-slate-100 border-slate-200"
-                    }`}
-                  >
-                    {area.mathNotation}
-                  </span>
-                  <span
-                    className={`font-mono text-xs transition-transform duration-200 ${
-                      isSelected
-                        ? "text-violet-700 translate-x-1 font-bold"
-                        : "text-slate-400 group-hover:translate-x-1"
-                    }`}
-                  >
-                    →
-                  </span>
-                </div>
+                {/* Mobile Accordion Drawer: Expands right beneath the tapped item on phones and tablets */}
+                {isSelected && (
+                  <div className="lg:hidden mt-3 pt-3 border-t border-violet-200/70 space-y-2.5 animate-fade-in w-full">
+                    <div className="p-3 bg-violet-50/60 border border-violet-200/80 rounded-lg text-center space-y-1">
+                      <span className="font-mono text-[9px] uppercase tracking-wider text-slate-500 block font-semibold">
+                        Representative Formulation
+                      </span>
+                      <div className="font-serif italic text-base text-slate-900 py-0.5 font-medium">
+                        {area.equationOrConcept}
+                      </div>
+                      <span className="font-mono text-[10px] text-violet-700 font-semibold">
+                        {area.mathNotation}
+                      </span>
+                    </div>
+
+                    <p className="text-xs text-slate-600 leading-relaxed font-sans px-0.5">
+                      {area.description}
+                    </p>
+                  </div>
+                )}
               </div>
             );
           })}
         </div>
 
-        {/* Right Column: Dynamic Concept Reveal Card (5 cols) */}
-        <div className="lg:col-span-5 sticky top-20">
+        {/* Right Column: Dynamic Concept Reveal Card (Desktop only, 5 cols) */}
+        <div className="hidden lg:block lg:col-span-5 sticky top-20">
           {(() => {
             const current =
               interestAreas.find((a) => a.id === activeId) || interestAreas[0];

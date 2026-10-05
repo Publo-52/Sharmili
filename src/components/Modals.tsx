@@ -190,7 +190,7 @@ export function CertificateModal({ certificate, onClose }: CertificateModalProps
             </div>
           </div>
 
-          <div className="relative grid grid-cols-2 gap-3 text-xs font-mono text-slate-600 pt-1 text-left">
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono text-slate-600 pt-1 text-left">
             <div>
               <span className="text-slate-400 block text-[9px] uppercase font-bold">
                 Issuing Organization:
@@ -210,7 +210,7 @@ export function CertificateModal({ certificate, onClose }: CertificateModalProps
             </div>
 
             {certificate.credentialId && (
-              <div className="col-span-2 pt-2 flex items-center justify-between text-[11px]">
+              <div className="col-span-1 sm:col-span-2 pt-2 flex flex-wrap items-center justify-between gap-1 text-[11px]">
                 <span>ID: {certificate.credentialId}</span>
                 <span className="text-blue-700 font-bold flex items-center gap-1">
                   <CheckCircle2 className="w-3.5 h-3.5" />

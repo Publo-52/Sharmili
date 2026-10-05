@@ -31,7 +31,7 @@ export default function Footer() {
         </div>
 
         {/* Right: Quick Links & Back to Top */}
-        <div className="flex items-center gap-5">
+        <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3.5 sm:gap-5">
           <a
             href="#about"
             className="hover:text-blue-700 transition-colors uppercase tracking-wider text-[10px] font-bold"
